@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HavenBar Home — Your Home, Elevated</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1A1612;
+  --bark:#3D2B1F;
+  --clay:#8B5E3C;
+  --sand:#D4B896;
+  --linen:#F5EFE6;
+  --cream:#FAF7F3;
+  --white:#FFFFFF;
+  --sage:#6B7A5E;
+  --rust:#C0522A;
+  --muted:#9C8B7A;
+  --font-display:'Playfair Display',serif;
+  --font-body:'Jost',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--cream);color:var(--ink);overflow-x:hidden}
+
+/* ANNOUNCE */
+.announce{background:var(--bark);color:var(--sand);text-align:center;padding:11px 20px;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:400}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(250,247,243,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(61,43,31,0.1);padding:0 48px;display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-family:var(--font-display);font-size:24px;font-weight:600;color:var(--bark);text-decoration:none;letter-spacing:1px}
+.logo span{color:var(--clay);font-style:italic}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);text-decoration:none;font-weight:400;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--clay);transition:width .3s}
+.nav-links a:hover{color:var(--clay)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-right button{background:none;border:none;cursor:pointer;font-size:18px;color:var(--bark);transition:color .2s}
+.nav-right button:hover{color:var(--clay)}
+.cart-pill{background:var(--bark);color:var(--linen);border:none;padding:10px 22px;font-family:var(--font-body);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:30px;transition:background .2s}
+.cart-pill:hover{background:var(--clay)}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:55% 45%;min-height:90vh}
+.hero-left{background:var(--linen);display:flex;flex-direction:column;justify-content:center;padding:80px 70px;position:relative;overflow:hidden}
+.hero-left::before{content:'';position:absolute;top:-80px;left:-80px;width:320px;height:320px;border-radius:50%;background:rgba(139,94,60,0.06);pointer-events:none}
+.hero-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--clay);margin-bottom:20px;font-weight:500}
+.hero-h1{font-family:var(--font-display);font-size:clamp(48px,5.5vw,80px);font-weight:400;line-height:1.08;color:var(--bark);margin-bottom:24px}
+.hero-h1 em{font-style:italic;color:var(--clay)}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.75;max-width:400px;margin-bottom:44px;font-weight:300}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-dark{background:var(--bark);color:var(--linen);border:none;padding:15px 34px;font-family:var(--font-body);font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .25s;text-decoration:none;display:inline-block}
+.btn-dark:hover{background:var(--clay)}
+.btn-ghost{background:transparent;color:var(--bark);border:1px solid var(--bark);padding:14px 34px;font-family:var(--font-body);font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .25s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{background:var(--bark);color:var(--linen)}
+.hero-meta{display:flex;gap:36px;margin-top:56px;padding-top:36px;border-top:1px solid rgba(61,43,31,0.12)}
+.meta-num{font-family:var(--font-display);font-size:30px;color:var(--bark)}
+.meta-lbl{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.hero-right{position:relative;overflow:hidden;background:var(--sand)}
+.hero-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease}
+.hero-right:hover .hero-img{transform:scale(1.05)}
+.hero-tag{position:absolute;top:36px;left:36px;background:var(--rust);color:var(--white);padding:10px 18px;border-radius:2px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500}
+.hero-card{position:absolute;bottom:36px;right:36px;background:var(--white);padding:20px 24px;border-radius:4px;box-shadow:0 8px 32px rgba(0,0,0,0.14)}
+.hero-card-sale{font-family:var(--font-display);font-size:34px;color:var(--rust);display:block;font-weight:600}
+.hero-card-txt{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+/* TRUST */
+.trust{background:var(--ink);padding:22px 48px;display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
+.ti{display:flex;align-items:center;gap:10px;color:var(--linen)}
+.ti-icon{font-size:16px;opacity:.7}
+.ti-txt{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;opacity:.8}
+
+/* SECTION HEADER */
+.sh{text-align:center;margin-bottom:48px}
+.sh-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--clay);margin-bottom:12px}
+.sh-title{font-family:var(--font-display);font-size:clamp(34px,3.5vw,52px);font-weight:400;color:var(--bark);line-height:1.1}
+.sh-title em{font-style:italic;color:var(--clay)}
+
+/* CATEGORIES */
+.cats{padding:80px 48px;background:var(--cream)}
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:1300px;margin:0 auto}
+.cat-card{position:relative;overflow:hidden;border-radius:3px;cursor:pointer;aspect-ratio:2/3;background:var(--sand)}
+.cat-card.wide{grid-column:span 2;aspect-ratio:auto}
+.cat-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.cat-card:hover img{transform:scale(1.08)}
+.cat-overlay{position:absolute;bottom:0;left:0;right:0;padding:18px 16px;background:linear-gradient(transparent,rgba(26,22,18,.78));color:var(--white)}
+.cat-name{font-family:var(--font-display);font-size:18px;font-weight:400}
+.cat-count{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;opacity:.75;margin-top:3px}
+
+/* PRODUCTS */
+.products{padding:80px 48px;background:var(--white)}
+.filter-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:40px;flex-wrap:wrap}
+.ftab{background:none;border:1px solid rgba(61,43,31,.2);padding:8px 22px;font-family:var(--font-body);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:30px;transition:all .2s;color:var(--muted)}
+.ftab.active,.ftab:hover{background:var(--bark);border-color:var(--bark);color:var(--linen)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;max-width:1300px;margin:0 auto}
+.pcard{background:var(--linen);border-radius:3px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;position:relative}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(26,22,18,.1)}
+.pimgw{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--sand)}
+.pimgw img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.pcard:hover .pimgw img{transform:scale(1.06)}
+.pbadge{position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 10px;border-radius:2px;font-weight:500}
+.pbadge.sale{background:var(--rust);color:var(--white)}
+.pbadge.new{background:var(--bark);color:var(--linen)}
+.pbadge.hot{background:var(--sage);color:var(--white)}
+.pactions{position:absolute;bottom:12px;left:50%;transform:translateX(-50%) translateY(8px);opacity:0;transition:all .3s;white-space:nowrap}
+.pcard:hover .pactions{opacity:1;transform:translateX(-50%) translateY(0)}
+.qadd{background:var(--bark);color:var(--linen);border:none;padding:9px 18px;font-family:var(--font-body);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .2s}
+.qadd:hover{background:var(--clay)}
+.pinfo{padding:14px 16px 18px}
+.pcat{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--clay);margin-bottom:5px}
+.pname{font-size:13px;color:var(--ink);line-height:1.4;margin-bottom:8px;font-weight:400}
+.pprice{font-family:var(--font-display);font-size:18px;color:var(--bark)}
+.pprice .orig{font-size:13px;color:var(--muted);text-decoration:line-through;margin-right:8px}
+.pprice .sale{color:var(--rust)}
+.pstars{display:flex;align-items:center;gap:4px;margin-top:6px}
+.star{color:var(--clay);font-size:11px}
+.rcount{font-size:11px;color:var(--muted)}
+.hidden{display:none!important}
+
+/* PROMO BANNER */
+.promo{background:var(--bark);padding:0;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.promo-img{width:100%;height:480px;object-fit:cover;display:block}
+.promo-content{padding:70px 60px;display:flex;flex-direction:column;justify-content:center}
+.promo-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sand);margin-bottom:18px;opacity:.8}
+.promo-title{font-family:var(--font-display);font-size:clamp(40px,4vw,58px);font-weight:400;color:var(--linen);line-height:1.1;margin-bottom:18px}
+.promo-title em{font-style:italic;color:var(--sand)}
+.promo-desc{font-size:14px;color:rgba(245,239,230,.6);line-height:1.8;margin-bottom:34px;font-weight:300}
+.countdown{display:flex;gap:16px;margin-bottom:34px}
+.cblock{background:rgba(255,255,255,.08);padding:14px 16px;border-radius:3px;text-align:center;min-width:60px}
+.cnum{font-family:var(--font-display);font-size:30px;color:var(--linen);display:block}
+.clbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,239,230,.5);margin-top:3px}
+.btn-sand{background:var(--sand);color:var(--bark);border:none;padding:15px 34px;font-family:var(--font-body);font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .25s;text-decoration:none;display:inline-block}
+.btn-sand:hover{background:var(--linen)}
+
+/* REVIEWS */
+.reviews{padding:80px 48px;background:var(--linen)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1100px;margin:0 auto}
+.rev-card{background:var(--white);padding:30px;border-radius:3px;border:1px solid rgba(61,43,31,.08)}
+.rev-stars{display:flex;gap:3px;margin-bottom:14px}
+.rev-star{color:var(--clay);font-size:13px}
+.rev-text{font-family:var(--font-display);font-size:16px;font-style:italic;color:var(--bark);line-height:1.7;margin-bottom:18px;font-weight:400}
+.rev-author{display:flex;align-items:center;gap:12px}
+.rev-av{width:36px;height:36px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;color:var(--bark)}
+.rev-name{font-size:13px;font-weight:500;color:var(--bark)}
+.rev-loc{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* NEWSLETTER */
+.newsletter{background:var(--clay);padding:80px 48px;text-align:center}
+.nl-title{font-family:var(--font-display);font-size:clamp(36px,4vw,52px);font-weight:400;color:var(--linen);margin-bottom:14px}
+.nl-title em{font-style:italic;color:var(--sand)}
+.nl-sub{font-size:14px;color:rgba(245,239,230,.7);margin-bottom:34px;font-weight:300}
+.nl-form{display:flex;max-width:460px;margin:0 auto}
+.nl-form input{flex:1;padding:15px 20px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-right:none;color:var(--linen);font-family:var(--font-body);font-size:13px;outline:none;border-radius:2px 0 0 2px}
+.nl-form input::placeholder{color:rgba(245,239,230,.4)}
+.nl-form button{background:var(--bark);color:var(--linen);border:none;padding:15px 26px;font-family:var(--font-body);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s;border-radius:0 2px 2px 0}
+.nl-form button:hover{background:var(--ink)}
+
+/* FOOTER */
+footer{background:var(--ink);padding:60px 48px 28px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;max-width:1300px;margin:0 auto 48px}
+.flogo{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--linen);display:block;margin-bottom:14px;text-decoration:none}
+.flogo span{color:var(--sand);font-style:italic}
+.fdesc{font-size:13px;color:rgba(245,239,230,.5);line-height:1.8;margin-bottom:22px;font-weight:300}
+.fsocial{display:flex;gap:10px}
+.fsoc{width:34px;height:34px;border:1px solid rgba(255,255,255,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(245,239,230,.5);cursor:pointer;transition:all .2s;text-decoration:none}
+.fsoc:hover{background:var(--clay);border-color:var(--clay);color:var(--white)}
+.fcol h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--linen);font-weight:500;margin-bottom:18px}
+.fcol ul{list-style:none}
+.fcol ul li{margin-bottom:9px}
+.fcol ul li a{font-size:13px;color:rgba(245,239,230,.5);text-decoration:none;transition:color .2s;font-weight:300}
+.fcol ul li a:hover{color:var(--sand)}
+.fbot{border-top:1px solid rgba(255,255,255,.06);padding-top:22px;display:flex;justify-content:space-between;align-items:center;max-width:1300px;margin:0 auto;font-size:12px;color:rgba(245,239,230,.35)}
+.fpay{display:flex;gap:8px;font-size:18px;opacity:.4}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-left>*{animation:fadeUp .7s ease forwards;opacity:0}
+.hero-left .hero-eyebrow{animation-delay:.1s}
+.hero-left .hero-h1{animation-delay:.2s}
+.hero-left .hero-sub{animation-delay:.3s}
+.hero-left .hero-btns{animation-delay:.4s}
+.hero-left .hero-meta{animation-delay:.5s}
+
+/* FEATURE STRIP */
+.feature-strip{background:var(--sand);padding:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:100%}
+.feat{display:flex;align-items:flex-start;gap:18px;padding:0 24px}
+.feat-icon{font-size:28px;flex-shrink:0;margin-top:2px}
+.feat-title{font-size:14px;font-weight:500;color:var(--bark);margin-bottom:5px;letter-spacing:.3px}
+.feat-desc{font-size:13px;color:var(--muted);line-height:1.6;font-weight:300}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{height:380px}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .promo{grid-template-columns:1fr}
+  .promo-img{height:280px}
+  .promo-content{padding:40px}
+  .rev-grid{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .feature-strip{grid-template-columns:1fr}
+  nav{padding:0 20px}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE -->
+<div class="announce">✦ Free shipping on all orders over $50 &nbsp;·&nbsp; Up to 52% off selected items &nbsp;·&nbsp; 30-day hassle-free returns ✦</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Haven<span>Bar</span> Home</a>
+  <ul class="nav-links">
+    <li><a href="#cats">Kitchen</a></li>
+    <li><a href="#cats">Living Room</a></li>
+    <li><a href="#cats">Outdoor</a></li>
+    <li><a href="#cats">Travel</a></li>
+    <li><a href="#cats">Office</a></li>
+    <li><a href="#sale">Sale</a></li>
+  </ul>
+  <div class="nav-right">
+    <button title="Search">🔍</button>
+    <button title="Wishlist">♡</button>
+    <button class="cart-pill">Cart (0)</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">New Arrivals — Spring 2025</p>
+    <h1 class="hero-h1">Every Room,<br><em>Elevated.</em></h1>
+    <p class="hero-sub">Premium home essentials, kitchen upgrades, and travel gear — curated for modern living. Quality you can feel, prices that make sense.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-dark">Shop Now</a>
+      <a href="#cats" class="btn-ghost">Browse Categories</a>
+    </div>
+    <div class="hero-meta">
+      <div><div class="meta-num">23+</div><div class="meta-lbl">Products</div></div>
+      <div><div class="meta-num">52%</div><div class="meta-lbl">Max Savings</div></div>
+      <div><div class="meta-num">4.9★</div><div class="meta-lbl">Avg Rating</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img class="hero-img" src="https://piq0g9-dw.myshopify.com/cdn/shop/files/02_8400e894-44f4-43cc-80af-9c8b6aa405a4.jpg?v=1773419688&width=1200" alt="HavenBar Home">
+    <span class="hero-tag">Up to 52% Off</span>
+    <div class="hero-card">
+      <span class="hero-card-sale">FREE</span>
+      <span class="hero-card-txt">Shipping over $50</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="ti"><span class="ti-icon">🚚</span><span class="ti-txt">Free shipping over $50</span></div>
+  <div class="ti"><span class="ti-icon">↩</span><span class="ti-txt">30-day returns</span></div>
+  <div class="ti"><span class="ti-icon">🔒</span><span class="ti-txt">Secure checkout</span></div>
+  <div class="ti"><span class="ti-icon">⭐</span><span class="ti-txt">4.9 star rated</span></div>
+  <div class="ti"><span class="ti-icon">📦</span><span class="ti-txt">Fast dispatch</span></div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="cats" id="cats">
+  <div class="sh">
+    <p class="sh-tag">Shop by Room</p>
+    <h2 class="sh-title">Find What Your Home <em>Needs</em></h2>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card wide" style="grid-row:span 2">
+      <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-02-BEIGE.jpg?v=1773305852&width=800" alt="Living Room">
+      <div class="cat-overlay"><div class="cat-name">Living Room</div><div class="cat-count">Chairs · Stools · Sofas</div></div>
+    </div>
+    <div class="cat-card">
+      <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/05_86814b34-b5a0-401b-9e3f-608b3d8644c9.jpg?v=1773480789&width=600" alt="Kitchen">
+      <div class="cat-overlay"><div class="cat-name">Kitchen</div><div class="cat-count">Griddles · Juicers · Fryers</div></div>
+    </div>
+    <div class="cat-card">
+      <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/18_55df5f0f-a5dd-443d-8d1a-1dfac546c778.jpg?v=1773475673&width=600" alt="Travel">
+      <div class="cat-overlay"><div class="cat-name">Travel</div><div class="cat-count">Luggage · Cases · Bags</div></div>
+    </div>
+    <div class="cat-card">
+      <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/09_26492017-697b-4a53-a685-6ca420300318.jpg?v=1773478711&width=600" alt="Outdoor">
+      <div class="cat-overlay"><div class="cat-name">Outdoor</div><div class="cat-count">Umbrellas · Tents · More</div></div>
+    </div>
+    <div class="cat-card">
+      <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-03.jpg?v=1773417269&width=600" alt="Office">
+      <div class="cat-overlay"><div class="cat-name">Office</div><div class="cat-count">Chairs · Desks · Storage</div></div>
+    </div>
+    <div class="cat-card">
+      <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/08_86949460-adf1-4a00-8a6d-8062e78307ed.jpg?v=1773842031&width=600" alt="Wellness">
+      <div class="cat-overlay"><div class="cat-name">Wellness</div><div class="cat-count">Sauna · Relaxation</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="sh">
+    <p class="sh-tag">Our Collection</p>
+    <h2 class="sh-title">Shop All <em>Products</em></h2>
+  </div>
+  <div class="filter-tabs">
+    <button class="ftab active" onclick="filter('all',this)">All</button>
+    <button class="ftab" onclick="filter('kitchen',this)">Kitchen</button>
+    <button class="ftab" onclick="filter('living',this)">Living Room</button>
+    <button class="ftab" onclick="filter('travel',this)">Travel</button>
+    <button class="ftab" onclick="filter('outdoor',this)">Outdoor</button>
+    <button class="ftab" onclick="filter('office',this)">Office</button>
+  </div>
+
+  <div class="pgrid" id="pgrid">
+
+    <!-- KITCHEN -->
+    <div class="pcard" data-cat="kitchen">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/05_86814b34-b5a0-401b-9e3f-608b3d8644c9.jpg?v=1773480789&width=600" alt="Griddle" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Kitchen</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(38)</span></div>
+        <p class="pname">22" Electric Countertop Flat Top Griddle 1600W</p>
+        <div class="pprice"><span class="orig">$77.00</span><span class="sale">$39.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="kitchen">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/12.jpg?v=1773670436&width=600" alt="Juicer" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Kitchen</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(52)</span></div>
+        <p class="pname">Cold Press Juicer 350W — Extra Wide Feed Chute</p>
+        <div class="pprice"><span class="orig">$58.00</span><span class="sale">$37.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="kitchen">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/01_119c0bf3-a001-4024-8ed1-88fa45357685.jpg?v=1773665138&width=600" alt="Toaster" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Kitchen</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(24)</span></div>
+        <p class="pname">Digital Smart Toaster with TouchScreen & Timer</p>
+        <div class="pprice"><span class="orig">$45.00</span><span class="sale">$30.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="kitchen">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/04_2e0c2ef8-80fd-45bd-a1f9-87ff87051e84.jpg?v=1773657005&width=600" alt="Deep Fryer" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Kitchen</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(31)</span></div>
+        <p class="pname">Stainless Steel Electric Deep Fryer 5.3Qt — 3 Baskets</p>
+        <div class="pprice"><span class="orig">$54.00</span><span class="sale">$34.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="kitchen">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/08_06f160b0-ef6a-4a78-80fe-ee497f8e9428.jpg?v=1774260060&width=600" alt="Kitchen Sponge" loading="lazy">
+        <span class="pbadge new">New</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Kitchen</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(17)</span></div>
+        <p class="pname">Super Absorbent Scratch-Resistant Kitchen Sponge Pack</p>
+        <div class="pprice">$2.55</div>
+      </div>
+    </div>
+
+    <!-- LIVING ROOM -->
+    <div class="pcard" data-cat="living">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-02-BEIGE.jpg?v=1773305852&width=600" alt="Bar Stool" loading="lazy">
+        <span class="pbadge hot">Popular</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Living Room</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(63)</span></div>
+        <p class="pname">26" Barrel-Style Beige Bar Stool with Armrests</p>
+        <div class="pprice">$58.00</div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="living">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/07_374efa7e-f142-4c57-b952-c2c9fbb7276d.jpg?v=1773304464&width=600" alt="Modern Bar Stools" loading="lazy">
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Living Room</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(44)</span></div>
+        <p class="pname">Modern Velvet Counter Height Bar Stools — Set of 2 or 4</p>
+        <div class="pprice">$66.00</div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="living">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-01-Beige_Color.jpg?v=1773305058&width=600" alt="Velvet Stools" loading="lazy">
+        <span class="pbadge hot">Popular</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Living Room</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(58)</span></div>
+        <p class="pname">Swivel Velvet Bar Stools — Adjustable Height, Set of 2</p>
+        <div class="pprice">$55.00</div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="living">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/14.jpg?v=1773418045&width=600" alt="Bean Bag Chair" loading="lazy">
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Living Room</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(29)</span></div>
+        <p class="pname">Bean Bag Sofa Chair — Compressed Sponge, Multi-Occasion</p>
+        <div class="pprice">$55.00</div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="living">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-03_6136f2d6-fb26-4e89-ac0c-ecdc7826dc46.jpg?v=1773589824&width=600" alt="Dining Set" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Living Room</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(22)</span></div>
+        <p class="pname">5-Piece Dining Table Set — Tempered Glass & Metal Frame</p>
+        <div class="pprice"><span class="orig">$178.00</span><span class="sale">$108.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="living">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/04_daf4c26b-38ee-4b84-9174-64e8d3f25deb.jpg?v=1773588819&width=600" alt="Dining Chairs" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Living Room</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(18)</span></div>
+        <p class="pname">Modern Boucle Upholstered Dining Chairs — Curved Back</p>
+        <div class="pprice"><span class="orig">$89.00</span><span class="sale">$46.00</span></div>
+      </div>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="pcard" data-cat="travel">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/01_fcb32a86-577e-4cd2-9aef-99f21ae59d84.jpg?v=1773420002&width=600" alt="Luggage Set" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Travel</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(71)</span></div>
+        <p class="pname">3-Piece Luggage Set with TSA Lock — 20/24/28 Inch</p>
+        <div class="pprice"><span class="orig">$62.00</span><span class="sale">$39.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="travel">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/18_55df5f0f-a5dd-443d-8d1a-1dfac546c778.jpg?v=1773475673&width=600" alt="Trolley Case" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Travel</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(46)</span></div>
+        <p class="pname">Stripe ABS Trolley Case Set — TSA Lock, Lightweight</p>
+        <div class="pprice"><span class="orig">$80.00</span><span class="sale">$45.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="travel">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/07_db40c9df-c558-4b9f-8fb1-2124c8ba2479.jpg?v=1773476045&width=600" alt="Aluminum Trolley" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Travel</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(33)</span></div>
+        <p class="pname">Aluminum Magnesium Alloy Trolley Case — 24 & 29 Inch</p>
+        <div class="pprice"><span class="orig">$125.00</span><span class="sale">$65.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="travel">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-04-Silvery.jpg?v=1773420846&width=600" alt="Business Case" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Travel</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(27)</span></div>
+        <p class="pname">20" Business Laptop Trolley — USB Charging, TSA Lock</p>
+        <div class="pprice"><span class="orig">$79.00</span><span class="sale">$45.00</span></div>
+      </div>
+    </div>
+
+    <!-- OUTDOOR -->
+    <div class="pcard" data-cat="outdoor">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/09_26492017-697b-4a53-a685-6ca420300318.jpg?v=1773478711&width=600" alt="Patio Umbrella" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Outdoor</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(55)</span></div>
+        <p class="pname">15ft Outdoor Patio Umbrella — UV Protective, 12 Ribs</p>
+        <div class="pprice"><span class="orig">$119.00</span><span class="sale">$68.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="outdoor">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/01_94d113e7-f44c-4ef4-891f-cff9f77852ec.jpg?v=1773311152&width=600" alt="Camping Tent" loading="lazy">
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Outdoor</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(19)</span></div>
+        <p class="pname">4–6 Person Automatic Camping Tent — Foldable</p>
+        <div class="pprice">$38.00</div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="outdoor">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-02-Coffee_Brown.jpg?v=1773310530&width=600" alt="Family Tent" loading="lazy">
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Outdoor</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(34)</span></div>
+        <p class="pname">Family Camping Tent with Mosquito Net — Beach & Backyard</p>
+        <div class="pprice">$58.00</div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="outdoor">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/13.jpg?v=1773839771&width=600" alt="Car Seat Covers" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Outdoor / Auto</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(26)</span></div>
+        <p class="pname">5-Seat PU Leather Car Seat Covers — All-Season</p>
+        <div class="pprice"><span class="orig">$85.00</span><span class="sale">$48.00</span></div>
+      </div>
+    </div>
+
+    <!-- OFFICE -->
+    <div class="pcard" data-cat="office">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-03.jpg?v=1773417269&width=600" alt="Ergonomic Chair" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Office</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(67)</span></div>
+        <p class="pname">Ergonomic High Back Mesh Chair — Lumbar Support</p>
+        <div class="pprice"><span class="orig">$70.00</span><span class="sale">$42.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="office">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/11_7c0b3e59-13eb-4a0a-be3b-5c07597adc5b.jpg?v=1773656071&width=600" alt="Office Chair" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Office</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(41)</span></div>
+        <p class="pname">Mid Back Swivel Mesh Office Chair with Armrests</p>
+        <div class="pprice"><span class="orig">$45.00</span><span class="sale">$25.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="office">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/02_a1250de4-19b6-4837-b1bb-0e9dc7e0a201.jpg?v=1773842935&width=600" alt="Storage Cabinet" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Office / Home</p>
+        <div class="pstars"><span class="star">★★★★☆</span><span class="rcount">(15)</span></div>
+        <p class="pname">3/4 Layer Storage Cabinet — Bathroom & Kitchen Organizer</p>
+        <div class="pprice"><span class="orig">$88.00</span><span class="sale">$42.00</span></div>
+      </div>
+    </div>
+
+    <div class="pcard" data-cat="office">
+      <div class="pimgw">
+        <img src="https://piq0g9-dw.myshopify.com/cdn/shop/files/08_86949460-adf1-4a00-8a6d-8062e78307ed.jpg?v=1773842031&width=600" alt="Sauna Tent" loading="lazy">
+        <span class="pbadge sale">Sale</span>
+        <div class="pactions"><button class="qadd">Quick Add</button></div>
+      </div>
+      <div class="pinfo">
+        <p class="pcat">Wellness</p>
+        <div class="pstars"><span class="star">★★★★★</span><span class="rcount">(23)</span></div>
+        <p class="pname">Portable Full Body Sauna Tent — Home Spa, 110V Steamer</p>
+        <div class="pprice"><span class="orig">$87.00</span><span class="sale">$53.00</span></div>
+      </div>
+    </div>
+
+  </div>
+  <div style="text-align:center;margin-top:44px"><a href="#" class="btn-ghost">View All 23 Products</a></div>
+</section>
+
+<!-- FEATURE STRIP -->
+<div class="feature-strip">
+  <div class="feat">
+    <span class="feat-icon">🏠</span>
+    <div><div class="feat-title">Curated for Modern Homes</div><div class="feat-desc">Every product is hand-selected for quality, durability, and real-world usefulness — not just what looks good on a listing.</div></div>
+  </div>
+  <div class="feat">
+    <span class="feat-icon">💰</span>
+    <div><div class="feat-title">Up to 52% Off Retail</div><div class="feat-desc">We source directly so you get premium quality at prices that actually make sense. No markups, no nonsense.</div></div>
+  </div>
+  <div class="feat">
+    <span class="feat-icon">🚀</span>
+    <div><div class="feat-title">Fast, Reliable Shipping</div><div class="feat-desc">Free shipping on all orders over $50. Most orders dispatched within 24 hours with full tracking provided.</div></div>
+  </div>
+</div>
+
+<!-- PROMO BANNER -->
+<section class="promo" id="sale">
+  <img class="promo-img" src="https://piq0g9-dw.myshopify.com/cdn/shop/files/SKU-03_6136f2d6-fb26-4e89-ac0c-ecdc7826dc46.jpg?v=1773589824&width=800" alt="Sale">
+  <div class="promo-content">
+    <p class="promo-tag">Flash Sale — Limited Time</p>
+    <h2 class="promo-title">Up to <em>52% Off</em><br>This Week Only</h2>
+    <p class="promo-desc">Our biggest discounts on furniture, kitchen appliances, luggage, and outdoor gear. New deals added daily — don't wait.</p>
+    <div class="countdown">
+      <div class="cblock"><span class="cnum" id="ch">11</span><div class="clbl">Hours</div></div>
+      <div class="cblock"><span class="cnum" id="cm">48</span><div class="clbl">Mins</div></div>
+      <div class="cblock"><span class="cnum" id="cs">22</span><div class="clbl">Secs</div></div>
+    </div>
+    <a href="#products" class="btn-sand">Shop the Sale →</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="sh">
+    <p class="sh-tag">Customer Reviews</p>
+    <h2 class="sh-title">What Our <em>Customers Say</em></h2>
+  </div>
+  <div class="rev-grid">
+    <div class="rev-card">
+      <div class="rev-stars"><span class="rev-star">★★★★★</span></div>
+      <p class="rev-text">"The dining table set arrived well-packaged and assembly was straightforward. The tempered glass top is stunning and the chairs are far more comfortable than I expected at this price point."</p>
+      <div class="rev-author">
+        <div class="rev-av">KT</div>
+        <div><div class="rev-name">Karen T.</div><div class="rev-loc">California, USA · Verified Purchase</div></div>
+      </div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars"><span class="rev-star">★★★★★</span></div>
+      <p class="rev-text">"Ordered the 3-piece luggage set for a family trip and it held up perfectly. The TSA lock works great, the spinner wheels are smooth, and the quality is honestly better than sets I've paid twice as much for."</p>
+      <div class="rev-author">
+        <div class="rev-av">MR</div>
+        <div><div class="rev-name">Marcus R.</div><div class="rev-loc">Texas, USA · Verified Purchase</div></div>
+      </div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-stars"><span class="rev-star">★★★★☆</span></div>
+      <p class="rev-text">"The electric griddle is a game changer for weekend breakfasts. Heats evenly, easy to clean, and the adjustable temperature actually works accurately. Fast shipping too — arrived in 4 days."</p>
+      <div class="rev-author">
+        <div class="rev-av">SB</div>
+        <div><div class="rev-name">Sarah B.</div><div class="rev-loc">Florida, USA · Verified Purchase</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <p class="sh-tag" style="color:var(--sand)">Join Our Community</p>
+  <h2 class="nl-title">Get <em>10% Off</em> Your First Order</h2>
+  <p class="nl-sub">Subscribe for exclusive deals, new arrivals, and home inspiration delivered weekly.</p>
+  <div class="nl-form">
+    <input type="email" placeholder="Enter your email address">
+    <button onclick="subscribe(this)">Subscribe</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fgrid">
+    <div>
+      <a href="#" class="flogo">Haven<span>Bar</span> Home</a>
+      <p class="fdesc">Premium home essentials, kitchen upgrades, travel gear and outdoor products — curated for modern living at prices that make sense.</p>
+      <div class="fsocial">
+        <a href="#" class="fsoc">f</a>
+        <a href="#" class="fsoc">in</a>
+        <a href="#" class="fsoc">📷</a>
+        <a href="#" class="fsoc">𝕏</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Kitchen</a></li>
+        <li><a href="#">Living Room</a></li>
+        <li><a href="#">Travel</a></li>
+        <li><a href="#">Outdoor</a></li>
+        <li><a href="#">Office</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns & Refunds</a></li>
+        <li><a href="#">Order Tracking</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <p>© 2025 HavenBar Home. All rights reserved.</p>
+    <div class="fpay">💳💳🅿🍎</div>
+  </div>
+</footer>
+
+<script>
+function filter(cat, btn) {
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#pgrid .pcard').forEach(c => {
+    c.classList.toggle('hidden', cat !== 'all' && c.dataset.cat !== cat);
+  });
+}
+
+function subscribe(btn) {
+  const input = btn.previousElementSibling;
+  if (input.value.includes('@')) {
+    btn.textContent = '✓ Subscribed!';
+    btn.style.background = '#6B7A5E';
+    input.value = '';
+    setTimeout(() => { btn.textContent = 'Subscribe'; btn.style.background = ''; }, 3000);
+  } else {
+    input.style.borderColor = '#C0522A';
+    setTimeout(() => input.style.borderColor = '', 2000);
+  }
+}
+
+document.querySelectorAll('.qadd').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const o = btn.textContent;
+    btn.textContent = 'Added ✓';
+    btn.style.background = '#6B7A5E';
+    setTimeout(() => { btn.textContent = o; btn.style.background = ''; }, 1500);
+  });
+});
+
+(function countdown() {
+  const end = new Date(Date.now() + 11*3600000 + 48*60000 + 22000);
+  setInterval(() => {
+    const d = Math.max(0, end - Date.now());
+    document.getElementById('ch').textContent = String(Math.floor(d/3600000)).padStart(2,'0');
+    document.getElementById('cm').textContent = String(Math.floor((d%3600000)/60000)).padStart(2,'0');
+    document.getElementById('cs').textContent = String(Math.floor((d%60000)/1000)).padStart(2,'0');
+  }, 1000);
+})();
+</script>
+</body>
+</html>
